@@ -4,6 +4,10 @@
   <groupId>org.example</groupId>
   <artifactId>HomeWork_13</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
   <name>Archetype - HomeWork_13</name>
   <url>http://maven.apache.org</url>
 

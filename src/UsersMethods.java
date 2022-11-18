@@ -1,7 +1,8 @@
-import Comments.Comment;
+import Comments.Comments;
+import Comments.UserPost;
+import ToDo.ToDoSTask;
 import UserData.User;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
@@ -11,7 +12,6 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -31,7 +31,7 @@ public class UsersMethods<T> {
             HttpResponse<Path> response = client.send(request,
                     HttpResponse.BodyHandlers.ofFile(Paths.get("src/UsersOutput/UserGet.txt")));
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -46,7 +46,7 @@ public class UsersMethods<T> {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(user).toString()))
+                .POST(HttpRequest.BodyPublishers.ofString(String.valueOf(user)))
                 .build();
 
         try {
@@ -54,14 +54,13 @@ public class UsersMethods<T> {
             System.out.println("response.statusCode() = " + response.statusCode());
             System.out.println("response.body() = " + response.body());
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
 
     }
 
     public ArrayList<T> jsonToObjectArray(File file) throws FileNotFoundException { // Works Fine
-        Gson gson = new Gson();
         return new Gson().fromJson(new JsonReader(new FileReader(file)), new TypeToken<List<T>>() {
         }
                 .getType());
@@ -74,30 +73,29 @@ public class UsersMethods<T> {
         String userWithId = String.valueOf(user.get(id));
 
 
-
         HttpClient client = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
                 .build();
 
         HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(uri))
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .timeout(Duration.ofMinutes(1))
-                    .PUT(HttpRequest.BodyPublishers.ofString(userWithId))
-                    .build();
+                .uri(URI.create(uri))
+                .version(HttpClient.Version.HTTP_1_1)
+                .timeout(Duration.ofMinutes(1))
+                .PUT(HttpRequest.BodyPublishers.ofString(userWithId))
+                .build();
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("response_PUT_statusCode() = " + response.statusCode());
             System.out.println("response.body() = " + response.body());
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
 
     }
 
-    public void deleteUser(ArrayList<User> user, int id, String url){
+    public void deleteUser(ArrayList<User> user, int id, String url) {
 
         String uri = url + "/" + (id);
         String userWithId = String.valueOf(user.get(id));
@@ -117,14 +115,13 @@ public class UsersMethods<T> {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("response_Delete_statusCode() = " + response.statusCode());
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
 
 
     }
 
-    public void getUserInfoWithID(int id, String url){
+    public void getUserInfoWithID(int id, String url) {
         String uri = url + "/" + id;
 
         HttpClient client = HttpClient.newHttpClient();
@@ -135,12 +132,12 @@ public class UsersMethods<T> {
             HttpResponse<Path> response = client.send(request,
                     HttpResponse.BodyHandlers.ofFile(Paths.get("src/UsersOutput/Get$" + id + "$User.txt")));
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
 
-    public void getUserInfoWithUserName(String name, String url){
+    public void getUserInfoWithUserName(String name, String url) {
 
         String uri = url + "?username=" + name;
 
@@ -152,16 +149,130 @@ public class UsersMethods<T> {
             HttpResponse<Path> response = client.send(request,
                     HttpResponse.BodyHandlers.ofFile(Paths.get("src/UsersOutput/Get$" + name + "$User.txt")));
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    public void getComments(){
+    public int getLastPost(int userId) {
+        URI url = null;
         try {
-            URI url = new URI("https://jsonplaceholder.typicode.com/users/1/posts");
+            url = new URI("https://jsonplaceholder.typicode.com/users/" + userId + "/posts");
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url)
+                .build();
+
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        List<UserPost> posts = new Gson().fromJson(response.body(), new TypeToken<List<UserPost>>() {
+        }
+                .getType());
+        return getLastPostId(posts);
     }
 
+    public void getCommentsToLastPost(int userId) {
+        int lastPostId = getLastPost(userId);
+        URI uri = null;
+        try {
+            uri = new URI("https://jsonplaceholder.typicode.com/posts/" + userId + "/comments");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .build();
+
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<Comments> comments = new Gson().fromJson(response.body(), new TypeToken<List<Comments>>() {
+        }
+                .getType());
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter("src/UsersOutput/user-" + userId +
+                "-post-" + lastPostId + "-comments.txt")) {
+            gson.toJson(comments, writer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(getAllCommentsToPost(comments));
+
+    }
+
+    public void toDoSList(int id) {
+        URI uri = null;
+        try {
+            uri = new URI("https://jsonplaceholder.typicode.com/users/" + id + "/todos");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .build();
+
+
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<ToDoSTask> toDo = new Gson().fromJson(response.body(), new TypeToken<List<ToDoSTask>>() {
+
+        }
+                .getType());
+
+        System.out.println("\nTo do list:\n" + findNotDoneTasks(toDo));
+
+    }
+
+
+    private int getLastPostId(List<UserPost> post) {
+        Integer lastId = 0;
+        for (int i = 0; i < post.size(); i++) {
+            UserPost o = post.get(i);
+            if (o.getId() > lastId) {
+                lastId = o.getId();
+            }
+        }
+        return lastId;
+    }
+
+    private StringBuilder getAllCommentsToPost(List<Comments> comments) {
+        StringBuilder sb = new StringBuilder("Comments:\n");
+        for (int i = 0; i < comments.size(); i++) {
+            Comments o = comments.get(i);
+            sb.append(o.toString());
+        }
+        return sb;
+    }
+
+    private StringBuilder findNotDoneTasks(List<ToDoSTask> toDoSTasks) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < toDoSTasks.size(); i++) {
+            ToDoSTask o = toDoSTasks.get(i);
+            if (!o.isCompleted()) {
+                sb.append(o);
+            }
+        }
+        return sb;
+    }
 }

@@ -1,7 +1,33 @@
+import UserData.Address;
+import UserData.Company;
+import UserData.Geo;
+import UserData.User;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        Map<String, Object> test = new HashMap<>() {
+        };
+        User user = new User(11, "Test user", "Test username", "fsdfds@mail.com",
+                new Address("fdsf", "sdfsdf", "sdfsdf",
+                        "sdfdsf", new Geo("Sfdsdfs", "sdfsdf", test), test), "fsdfsd", "fsdfsd",
+                new Company("Test company", "fdsfdf", "bs", test), test);
+        File file = new File("src/UsersOutput/UserGet.txt");
         UsersMethods um = new UsersMethods();
-        String uri = "https://jsonplaceholder.typicode.com/users";
-        um.getAllUserInfo(uri);
+        String url = "https://jsonplaceholder.typicode.com/users";
+//        um.getAllUserInfo(url);
+//
+        ArrayList<User> userArrayList = um.jsonToObjectArray(file);
+        um.postUser(user, url);
+
+        um.putUser(userArrayList, url);
+
+
     }
 }

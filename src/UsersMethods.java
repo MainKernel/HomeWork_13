@@ -1,3 +1,4 @@
+import Comments.Comment;
 import UserData.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,6 +7,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -17,16 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsersMethods {
+public class UsersMethods<T> {
 
-    public void userToGson(User user) {
-        try (Writer writer = new FileWriter("src/UsersOutput/User.json")) {
-            Gson gson = new GsonBuilder().create();
-            gson.toJson(user, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void getAllUserInfo(String url) {
         HttpClient client = HttpClient.newHttpClient();
@@ -66,12 +60,13 @@ public class UsersMethods {
 
     }
 
-    public ArrayList<User> jsonToObjectArray(File file) throws FileNotFoundException { // Works Fine
+    public ArrayList<T> jsonToObjectArray(File file) throws FileNotFoundException { // Works Fine
         Gson gson = new Gson();
-        return new Gson().fromJson(new JsonReader(new FileReader(file)), new TypeToken<List<User>>() {
+        return new Gson().fromJson(new JsonReader(new FileReader(file)), new TypeToken<List<T>>() {
         }
                 .getType());
     }
+
 
     public void putUser(ArrayList<User> user, int id, String url) {
 
@@ -121,7 +116,6 @@ public class UsersMethods {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("response_Delete_statusCode() = " + response.statusCode());
-            System.out.println("response.body() = " + response.body());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -158,6 +152,14 @@ public class UsersMethods {
             HttpResponse<Path> response = client.send(request,
                     HttpResponse.BodyHandlers.ofFile(Paths.get("src/UsersOutput/Get$" + name + "$User.txt")));
         } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void getComments(){
+        try {
+            URI url = new URI("https://jsonplaceholder.typicode.com/users/1/posts");
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

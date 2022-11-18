@@ -28,7 +28,7 @@ public class Main {
         //getting information about all users
         um.getAllUserInfo(url);
         //Converting all users info to objects array
-        ArrayList<User> userArrayList = um.jsonToObjectArray(file);
+        ArrayList<Object> userArrayList = um.jsonToObjectArray(file);
         //creation of a new user
         um.postUser(user, url);
         //update user

@@ -21,12 +21,25 @@ public class Main {
         File file = new File("src/UsersOutput/UserGet.txt");
         UsersMethods um = new UsersMethods();
         String url = "https://jsonplaceholder.typicode.com/users";
-//        um.getAllUserInfo(url);
-//
-        ArrayList<User> userArrayList = um.jsonToObjectArray(file);
-        um.postUser(user, url);
 
-        um.putUser(userArrayList, url);
+
+//Task 1
+
+        //getting information about all users
+        um.getAllUserInfo(url);
+        //Converting all users info to objects array
+        ArrayList<User> userArrayList = um.jsonToObjectArray(file);
+        //creation of a new user
+        um.postUser(user, url);
+        //update user
+        um.putUser(userArrayList, 4, url);
+        //delete user
+        um.deleteUser(userArrayList, 4, url);
+        //gating user info with id
+        um.getUserInfoWithID(3, url);
+        //obtaining information about the user with the username
+        um.getUserInfoWithUserName("Samantha", url);
+// Task 2
 
 
     }

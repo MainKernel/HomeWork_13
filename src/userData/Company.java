@@ -11,8 +11,6 @@ public class Company {
 
     private String bs;
 
-//    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
     public Company() {
 
     }
@@ -21,7 +19,6 @@ public class Company {
         this.name = name;
         this.catchPhrase = catchPhrase;
         this.bs = bs;
-//        this.additionalProperties = additionalProperties;
     }
 
     public String getName() {
@@ -66,21 +63,6 @@ public class Company {
         this.bs = bs;
         return this;
     }
-//
-//
-//    public Map<String, Object> getAdditionalProperties() {
-//        return this.additionalProperties;
-//    }
-//
-//
-//    public void setAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//    }
-//
-//    public Company withAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//        return this;
-//    }
 
     @Override
     public String toString() {
@@ -98,10 +80,6 @@ public class Company {
         sb.append('=');
         sb.append(((this.bs == null) ? "<null>" : this.bs));
         sb.append(", \n");
-//        sb.append("additionalProperties");
-//        sb.append('=');
-//        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
-//        sb.append(',');
         if (sb.charAt((sb.length() - 1)) == ',') {
             sb.setCharAt((sb.length() - 1), ']');
         } else {

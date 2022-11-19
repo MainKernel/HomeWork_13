@@ -14,7 +14,6 @@ public class Address {
 
     private Geo geo;
 
-//    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Address() {
 
@@ -27,7 +26,7 @@ public class Address {
         this.city = city;
         this.zipcode = zipcode;
         this.geo = geo;
-//        this.additionalProperties = additionalProperties;
+
     }
 
     public String getStreet() {
@@ -102,20 +101,6 @@ public class Address {
     }
 
 
-//    public Map<String, Object> getAdditionalProperties() {
-//        return this.additionalProperties;
-//    }
-//
-//
-//    public void setAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//    }
-//
-//    public Address withAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//        return this;
-//    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -140,10 +125,6 @@ public class Address {
         sb.append('=');
         sb.append(((this.geo == null) ? "<null>" : this.geo));
         sb.append(", \n");
-//        sb.append("additionalProperties");
-//        sb.append('=');
-//        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
-//        sb.append(',');
         if (sb.charAt((sb.length() - 1)) == ',') {
             sb.setCharAt((sb.length() - 1), ']');
         } else {

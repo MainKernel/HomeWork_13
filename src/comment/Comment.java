@@ -50,10 +50,7 @@ public class Comment {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("\n");
-//        sb.append("postId = ").append(postId).append("\n");
-//        sb.append("id = ").append(id).append("\n");
         sb.append("name = ").append(name).append("\n");
-//        sb.append("email =").append(email).append("\n");
         sb.append("body = ").append(body).append("\n");
         return sb.toString();
     }

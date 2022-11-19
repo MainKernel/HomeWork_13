@@ -8,8 +8,6 @@ public class Geo {
 
     private String lng;
 
-//    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
     public Geo() {
 
     }
@@ -17,7 +15,6 @@ public class Geo {
     public Geo(String lat, String lng, Map<String, Object> additionalProperties) {
         this.lat = lat;
         this.lng = lng;
-//        this.additionalProperties = additionalProperties;
 
     }
 
@@ -51,20 +48,6 @@ public class Geo {
     }
 
 
-//    public Map<String, Object> getAdditionalProperties() {
-//        return this.additionalProperties;
-//    }
-//
-//
-//    public void setAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//    }
-//
-//    public Geo withAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//        return this;
-//    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -77,10 +60,6 @@ public class Geo {
         sb.append('=');
         sb.append(((this.lng == null) ? "<null>" : this.lng));
         sb.append(", \n");
-//        sb.append("additionalProperties");
-//        sb.append('=');
-//        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
-//        sb.append(',');
         if (sb.charAt((sb.length() - 1)) == ',') {
             sb.setCharAt((sb.length() - 1), ']');
         } else {

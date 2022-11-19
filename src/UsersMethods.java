@@ -1,7 +1,7 @@
-import Comments.Comments;
-import Comments.UserPost;
-import ToDo.ToDoSTask;
-import UserData.User;
+import comment.Comment;
+import comment.UserPost;
+import toDo.ToDoSTask;
+import userData.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -199,7 +199,7 @@ public class UsersMethods<T> {
             e.printStackTrace();
         }
 
-        List<Comments> comments = new Gson().fromJson(response.body(), new TypeToken<List<Comments>>() {
+        List<Comment> comments = new Gson().fromJson(response.body(), new TypeToken<List<Comment>>() {
         }
                 .getType());
         Gson gson = new Gson();
@@ -256,10 +256,10 @@ public class UsersMethods<T> {
         return lastId;
     }
 
-    private StringBuilder getAllCommentsToPost(List<Comments> comments) {
+    private StringBuilder getAllCommentsToPost(List<Comment> comments) {
         StringBuilder sb = new StringBuilder("Comments:\n");
         for (int i = 0; i < comments.size(); i++) {
-            Comments o = comments.get(i);
+            Comment o = comments.get(i);
             sb.append(o.toString());
         }
         return sb;

@@ -1,6 +1,5 @@
-package UserData;
+package userData;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Geo {

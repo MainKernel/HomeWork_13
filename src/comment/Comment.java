@@ -1,6 +1,6 @@
-package Comments;
+package comment;
 
-public class Comments {
+public class Comment {
     private Integer postId;
     private Integer id;
     private String name;

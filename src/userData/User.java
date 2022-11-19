@@ -1,9 +1,5 @@
-package UserData;
+package userData;
 
-import UserData.Address;
-import UserData.Company;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class User {

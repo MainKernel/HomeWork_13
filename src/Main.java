@@ -1,8 +1,7 @@
-import UserData.Address;
-import UserData.Company;
-import UserData.Geo;
-import UserData.User;
-import com.google.gson.Gson;
+import userData.Address;
+import userData.Company;
+import userData.Geo;
+import userData.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;

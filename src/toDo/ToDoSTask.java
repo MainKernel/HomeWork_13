@@ -1,10 +1,10 @@
-package Comments;
+package toDo;
 
-public class UserPost {
+public class ToDoSTask {
     private Integer userId;
     private Integer id;
     private String title;
-    private String body;
+    private boolean completed;
 
     public Integer getUserId() {
         return userId;
@@ -30,13 +30,18 @@ public class UserPost {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
-
+    @Override
+    public String toString(){
+        String str = "\n" +
+                title + "\n";
+        return str;
+    }
 }

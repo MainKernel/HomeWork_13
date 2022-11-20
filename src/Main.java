@@ -15,8 +15,8 @@ public class Main {
         };
         User user = new User(11, "Test user", "Test username", "fsdfds@mail.com",
                 new Address("fdsf", "sdfsdf", "sdfsdf",
-                        "sdfdsf", new Geo("Sfdsdfs", "sdfsdf", test), test), "fsdfsd", "fsdfsd",
-                new Company("Test company", "fdsfdf", "bs", test), test);
+                        "sdfdsf", new Geo("Sfdsdfs", "sdfsdf")), "fsdfsd", "fsdfsd",
+                new Company("Test company", "fdsfdf", "bs"));
 
         File file = new File("src/UsersOutput/UserGet.txt");
 

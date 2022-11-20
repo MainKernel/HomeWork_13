@@ -20,7 +20,7 @@ public class Address {
     }
 
     public Address(String street, String suite, String city,
-                   String zipcode, Geo geo, Map<String, Object> additionalProperties) {
+                   String zipcode, Geo geo) {
         this.street = street;
         this.suite = suite;
         this.city = city;

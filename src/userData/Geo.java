@@ -12,7 +12,7 @@ public class Geo {
 
     }
 
-    public Geo(String lat, String lng, Map<String, Object> additionalProperties) {
+    public Geo(String lat, String lng) {
         this.lat = lat;
         this.lng = lng;
 

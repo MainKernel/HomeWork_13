@@ -1,7 +1,5 @@
 package userData;
 
-import java.util.Map;
-
 public class User {
 
     private Integer id;
@@ -23,8 +21,7 @@ public class User {
     }
 
     public User(Integer id, String name, String username, String email,
-                Address address, String phone, String website, Company company,
-                Map<String, Object> additionalProperties) {
+                Address address, String phone, String website, Company company) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -33,10 +30,8 @@ public class User {
         this.phone = phone;
         this.website = website;
         this.company = company;
-//        this.additionalProperties = additionalProperties;
     }
 
-//    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Integer getId() {
         return id;
@@ -145,19 +140,6 @@ public class User {
         return this;
     }
 
-//    public Map<String, Object> getAdditionalProperties() {
-//        return this.additionalProperties;
-//    }
-//
-//
-//    public void setAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//    }
-//
-//    public User withAdditionalProperty(String name, Object value) {
-//        this.additionalProperties.put(name, value);
-//        return this;
-//    }
 
     @Override
     public String toString() {
@@ -196,10 +178,7 @@ public class User {
         sb.append('=');
         sb.append(((this.company == null)?"<null>":this.company));
         sb.append(", \n");
-//        sb.append("additionalProperties");
-//        sb.append('=');
-//        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
-//        sb.append(',');
+
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {

@@ -15,7 +15,7 @@ public class Company {
 
     }
 
-    public Company(String name, String catchPhrase, String bs, Map<String, Object> additionalProperties) {
+    public Company(String name, String catchPhrase, String bs) {
         this.name = name;
         this.catchPhrase = catchPhrase;
         this.bs = bs;
